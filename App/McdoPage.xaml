@@ -4,34 +4,47 @@
              x:Class="App.McdoPage"
              Title="McdoPage"
              xmlns:viewmodel="clr-namespace:App.ViewModel"
+             xmlns:shareabletypes="clr-namespace:ShareableTypes;assembly=ShareableTypes"
+             xmlns:controls="clr-namespace:App.Controls"
              x:DataType="viewmodel:McdoViewModel">
     <VerticalStackLayout
         Margin="10, 0">
         <Label 
-            Text="Welcome to .NET MAUI!"
+            Text="Mcdonal's Discount Codes"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
 
-        <CollectionView>
-            <CollectionView.ItemsSource>
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>first</x:String>
-                    <x:String>second</x:String>
-                    <x:String>third</x:String>
-                </x:Array>
-            </CollectionView.ItemsSource>
+        <CollectionView
+            ItemsSource="{Binding Codes}">
             <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid ColumnDefinitions=".75*, *" Margin="2" BackgroundColor="#a0a0a0">
-                        <Label Text="{Binding .}"
+                <DataTemplate x:DataType="controls:McdoCodeView">
+                    
+                </DataTemplate>
+                <DataTemplate x:DataType="shareabletypes:McdoCode">
+                    <Grid ColumnDefinitions="1*, 2*, 1*" Margin="2" BackgroundColor="#FFC72C">
+                        <Label Text="{Binding CreationDate}"
+                               TextColor="Black"
                                HorizontalTextAlignment="Center"
                                VerticalTextAlignment="Center"/>
-                        <CheckBox Grid.Column="1"/>
+
+                        <Label Grid.Column="1"
+                               Text="{Binding Code}"
+                               TextColor="Black"
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Center"/>
+
+                        <CheckBox Grid.Column="2"
+                                  Color="#DA291C"
+                                  IsChecked="{Binding IsUsed}"
+                                  CheckedChanged="ItemCheckboxChecked"
+                                  >
+                        </CheckBox>
+                        
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
     </VerticalStackLayout>
-    
-    
+
+
 </ContentPage>
