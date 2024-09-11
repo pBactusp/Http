@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using App.ViewModel;
+using Microsoft.Extensions.Logging;
 
 namespace App
 {
@@ -15,8 +16,14 @@ namespace App
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            builder.Services.AddSingleton<MainPage>();
+            builder.Services.AddSingleton<MainViewModel>();
+
+            builder.Services.AddTransient<McdoPage>();
+            builder.Services.AddTransient<McdoViewModel>();
+
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();

@@ -8,7 +8,7 @@ namespace MyHttp
         HttpListener _listener;
         CancellationTokenSource _cancellationTokenSource;
 
-        public Server(string adress, int port, string[] prefixes)
+        public Server(string adress, string port, string[] prefixes)
         {
             if (!HttpListener.IsSupported)
             {
