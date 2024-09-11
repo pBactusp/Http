@@ -17,9 +17,9 @@
         <CollectionView
             ItemsSource="{Binding Codes}">
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="controls:McdoCodeView">
+                <!--<DataTemplate x:DataType="controls:McdoCodeView">
                     
-                </DataTemplate>
+                </DataTemplate>-->
                 <DataTemplate x:DataType="shareabletypes:McdoCode">
                     <Grid ColumnDefinitions="1*, 2*, 1*" Margin="2" BackgroundColor="#FFC72C">
                         <Label Text="{Binding CreationDate}"
