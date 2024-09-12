@@ -20,6 +20,7 @@
         <CheckBox Grid.Column="2"
               Color="#DA291C"
               IsChecked="{Binding IsUsed}"
+              CheckedChanged="CheckBox_CheckedChanged"
               >
         </CheckBox>
 

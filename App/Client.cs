@@ -9,13 +9,13 @@
             _client = new HttpClient();
         }
 
-        public static async Task<string> RequestData()
+        public static async Task<string> RequestData(string path)
         {
             // Call asynchronous network methods in a try/catch block to handle exceptions.
             try
             {
                 _client = new HttpClient();
-                using HttpResponseMessage response = await _client.GetAsync($"http://10.60.41.144:8080/data");
+                using HttpResponseMessage response = await _client.GetAsync($"http://192.168.1.237:8080/{path}");
                 response.EnsureSuccessStatusCode();
                 string responseBody = await response.Content.ReadAsStringAsync();
                 // Above three lines can be replaced with new helper method below

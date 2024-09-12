@@ -74,6 +74,9 @@
 	  <MauiXaml Update="ContentView\McdoCodeView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="ContentView\NewContent1.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="McdoPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

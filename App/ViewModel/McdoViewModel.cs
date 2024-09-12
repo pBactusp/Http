@@ -4,7 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace App.ViewModel
@@ -16,31 +18,32 @@ namespace App.ViewModel
 
         public McdoViewModel()
         {
-            Codes = new ObservableCollection<McdoCode>();
+            LoadCodes();
 
-            Codes.Add(new McdoCode()
-            {
-                CreationDate = "1.2.1993",
-                Code = "123456",
-                IsUsed = false,
-                Id = 0
-            });
-            Codes.Add(new McdoCode()
-            {
-                CreationDate = "21.12.2001",
-                Code = "111111",
-                IsUsed = true,
-                Id = 1
-            });
-            Codes.Add(new McdoCode()
-            {
-                CreationDate = "15.8.2014",
-                Code = "123123",
-                IsUsed = false,
-                Id = 2
-            });
         }
+         
+        public async void LoadCodes()
+        {
+            if (!await RequestCodesAsync())
+            {
+                
+            }
 
+        }
+        public async Task<bool> RequestCodesAsync()
+        {
+            try
+            {
+                string jsonData = await Client.RequestData("codes");
+                Codes = JsonSerializer.Deserialize<ObservableCollection<McdoCode>>(jsonData);
+                return Codes != null;
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
 
         public async Task ItemCheckboxChecked(object sender, EventArgs e)
         {

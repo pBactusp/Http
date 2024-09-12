@@ -1,4 +1,6 @@
-﻿using System.Net;
+﻿using ShareableTypes;
+using System.Net;
+using System.Text.Json;
 
 namespace MyHttp
 {
@@ -7,6 +9,8 @@ namespace MyHttp
         string[] _prefixes;
         HttpListener _listener;
         CancellationTokenSource _cancellationTokenSource;
+
+        List<McdoCode> mcdoCodes;
 
         public Server(string adress, string port, string[] prefixes)
         {
@@ -25,6 +29,27 @@ namespace MyHttp
                 _listener.Prefixes.Add($"http://{adress}:{port}{prefix}");
 
             _cancellationTokenSource = new CancellationTokenSource();
+
+            #region Create McdoCodes for testing
+            mcdoCodes = new List<McdoCode>();
+            Random rnd = new Random();
+            DateTime RandomDay()
+            {
+                DateTime start = new DateTime(1995, 1, 1);
+                int range = (DateTime.Today - start).Days;
+                return start.AddDays(rnd.Next(range));
+            }
+            for (int i = 0; i < 10; i++)
+            {
+                mcdoCodes.Add(new McdoCode()
+                {
+                    CreationDate = RandomDay().Date.ToString("d"),
+                    Code = rnd.Next(99999, 1000000).ToString(),
+                    IsUsed = Convert.ToBoolean(rnd.Next(2)),
+                    Id = i
+                });
+            }
+            #endregion
         }
 
         public void Start()
@@ -71,6 +96,10 @@ namespace MyHttp
                         Wut = new int[] { 3, 1, 2 }
                     };
                     responseString = System.Text.Json.JsonSerializer.Serialize(dataPack);
+                    break;
+                case "/codes":
+                    responseString = JsonSerializer.Serialize(mcdoCodes);
+                    Console.WriteLine(responseString);
                     break;
                 default:
                     response.StatusCode = (int)HttpStatusCode.NotFound;

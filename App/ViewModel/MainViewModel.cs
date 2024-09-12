@@ -14,7 +14,7 @@ namespace App.ViewModel
         public async void ButtonPressed()
         {
             DebugMessage = string.Empty;
-            DebugMessage = await Client.RequestData();
+            //DebugMessage = await Client.RequestData();
             await Shell.Current.GoToAsync(nameof(McdoPage));
         }
     }

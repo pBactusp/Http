@@ -6,6 +6,7 @@
              xmlns:viewmodel="clr-namespace:App.ViewModel"
              xmlns:shareabletypes="clr-namespace:ShareableTypes;assembly=ShareableTypes"
              xmlns:controls="clr-namespace:App.Controls"
+             xmlns:models="clr-namespace:App.Model"
              x:DataType="viewmodel:McdoViewModel">
     <VerticalStackLayout
         Margin="10, 0">
@@ -17,11 +18,9 @@
         <CollectionView
             ItemsSource="{Binding Codes}">
             <CollectionView.ItemTemplate>
-                <!--<DataTemplate x:DataType="controls:McdoCodeView">
-                    
-                </DataTemplate>-->
-                <DataTemplate x:DataType="shareabletypes:McdoCode">
-                    <Grid ColumnDefinitions="1*, 2*, 1*" Margin="2" BackgroundColor="#FFC72C">
+                <DataTemplate x:DataType="models:McdoCodeModel">
+                    <controls:McdoCodeView/>
+                    <!--<Grid ColumnDefinitions="1*, 2*, 1*" Margin="2" BackgroundColor="#FFC72C">
                         <Label Text="{Binding CreationDate}"
                                TextColor="Black"
                                HorizontalTextAlignment="Center"
@@ -40,7 +39,7 @@
                                   >
                         </CheckBox>
                         
-                    </Grid>
+                    </Grid>-->
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
