@@ -1,8 +1,9 @@
-﻿namespace App
+namespace App
 {
     public static class Client
     {
         static HttpClient _client;
+        static string _targetIp = "10.100.102.13";
 
         static Client()
         {
@@ -15,7 +16,7 @@
             try
             {
                 _client = new HttpClient();
-                using HttpResponseMessage response = await _client.GetAsync($"http://192.168.1.237:8080/{path}");
+                using HttpResponseMessage response = await _client.GetAsync($"http://{_targetIp}:8080/{path}");
                 response.EnsureSuccessStatusCode();
                 string responseBody = await response.Content.ReadAsStringAsync();
                 // Above three lines can be replaced with new helper method below
