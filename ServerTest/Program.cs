@@ -7,7 +7,8 @@ string[] prefixes = new string[]
     "/wat/",
     "/data/",
     "/codes/",
-    "/editCode/"
+    "/editCode/",
+    "/newCode/"
 };
 
 

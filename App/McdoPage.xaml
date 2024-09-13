@@ -8,42 +8,33 @@
              xmlns:controls="clr-namespace:App.Controls"
              xmlns:models="clr-namespace:App.Model"
              x:DataType="viewmodel:McdoViewModel">
-    <VerticalStackLayout
-        Margin="10, 0">
+    <Grid RowDefinitions="1*, 8*, 1*">
         <Label 
             Text="Mcdonal's Discount Codes"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
 
-        <CollectionView
-            ItemsSource="{Binding Codes}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:McdoCodeModel">
-                    <controls:McdoCodeView/>
-                    <!--<Grid ColumnDefinitions="1*, 2*, 1*" Margin="2" BackgroundColor="#FFC72C">
-                        <Label Text="{Binding CreationDate}"
-                               TextColor="Black"
-                               HorizontalTextAlignment="Center"
-                               VerticalTextAlignment="Center"/>
+            <CollectionView x:Name="ListOfCodes"
+                Grid.Row="1"
+                Margin="10, 0"
+                ItemsSource="{Binding Codes}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:McdoCodeModel">
+                        <controls:McdoCodeView/>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        <controls:NewMcdoCodeControl x:Name="NewMcdoCodeControl"
+            Grid.Row="1"
+            IsVisible="False"/>
 
-                        <Label Grid.Column="1"
-                               Text="{Binding Code}"
-                               TextColor="Black"
-                               HorizontalTextAlignment="Center"
-                               VerticalTextAlignment="Center"/>
-
-                        <CheckBox Grid.Column="2"
-                                  Color="#DA291C"
-                                  IsChecked="{Binding IsUsed}"
-                                  CheckedChanged="ItemCheckboxChecked"
-                                  >
-                        </CheckBox>
-                        
-                    </Grid>-->
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </VerticalStackLayout>
-
+        <Grid Grid.Row="2" 
+              ColumnDefinitions="3*, 1*">
+            <Button x:Name="ExpandButton"
+                    Grid.Column="1"
+                    Clicked="OpenAddNewPopup"
+                    Text="+"/>
+        </Grid>
+    </Grid>
 
 </ContentPage>

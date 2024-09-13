@@ -106,9 +106,21 @@ namespace MyHttp
                 case "/editCode":
                     int id = int.Parse(q.Get("id"));
                     bool isUsed = bool.Parse(q.Get("isUsed"));
-
                     mcdoCodes[int.Parse(q.Get("id"))].IsUsed = bool.Parse(q.Get("isUsed"));
                     responseString = string.Empty;
+                    break;
+                case "/newCode":
+                    string code = q.Get("code");
+                    var newCode = new McdoCode()
+                    {
+                        Code = code,
+                        CreationDate = DateTime.Now.ToString("d"),
+                        Id = mcdoCodes.Count,
+                        IsUsed = false,
+                    };
+
+                    mcdoCodes.Add(newCode);
+                    responseString = JsonSerializer.Serialize(newCode);
                     break;
                 default:
                     response.StatusCode = (int)HttpStatusCode.NotFound;
