@@ -1,6 +1,4 @@
 ﻿using MyHttp;
-using ShareableTypes;
-using System.Security.Cryptography;
 
 string[] prefixes = new string[]
 {
@@ -8,7 +6,8 @@ string[] prefixes = new string[]
     "/yo/",
     "/wat/",
     "/data/",
-    "/codes/"
+    "/codes/",
+    "/editCode/"
 };
 
 

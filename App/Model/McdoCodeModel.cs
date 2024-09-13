@@ -19,14 +19,14 @@ namespace App.Model
         [ObservableProperty]
         bool isUsed;
 
-        int id;
+        public int Id;
 
         public McdoCodeModel(McdoCode source)
         {
             creationDate = source.CreationDate;
             code = source.Code;
             isUsed = source.IsUsed;
-            id = source.Id;
+            Id = source.Id;
         }
     }
 }

@@ -71,9 +71,11 @@ namespace MyHttp
             Console.WriteLine("A request has been recieved!");
             var request = context.Request;
             var response = context.Response;
-            string rawUrl = request.RawUrl;
+            string rawUrl = request.RawUrl.Split('?')[0];
+            
             string responseString;
 
+            var q = request.QueryString;
 
             response.StatusCode = (int)HttpStatusCode.OK;
 
@@ -100,6 +102,13 @@ namespace MyHttp
                 case "/codes":
                     responseString = JsonSerializer.Serialize(mcdoCodes);
                     Console.WriteLine(responseString);
+                    break;
+                case "/editCode":
+                    int id = int.Parse(q.Get("id"));
+                    bool isUsed = bool.Parse(q.Get("isUsed"));
+
+                    mcdoCodes[int.Parse(q.Get("id"))].IsUsed = bool.Parse(q.Get("isUsed"));
+                    responseString = string.Empty;
                     break;
                 default:
                     response.StatusCode = (int)HttpStatusCode.NotFound;

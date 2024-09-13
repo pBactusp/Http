@@ -34,7 +34,7 @@ namespace App.ViewModel
         {
             try
             {
-                string jsonData = await Client.RequestData("codes");
+                string jsonData = await Client.Get("codes");
                 Codes = JsonSerializer.Deserialize<ObservableCollection<McdoCode>>(jsonData);
                 return Codes != null;
 
