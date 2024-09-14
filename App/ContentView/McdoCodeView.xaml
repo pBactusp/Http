@@ -3,9 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="App.Controls.McdoCodeView"
              xmlns:model="clr-namespace:App.Model"
-             x:DataType="model:McdoCodeModel">
-    
-    <Grid ColumnDefinitions="1*, 2*, 1*" Margin="2" BackgroundColor="#FFC72C">
+             x:DataType="model:McdoCodeModel"
+             x:Name="self">
+
+    <Grid ColumnDefinitions="1*, 2*, 1*" Margin="2"
+          BackgroundColor="{Binding Source={x:Reference self}, Path=BackgroundColor}">
+
         <Label Text="{Binding CreationDate}"
            TextColor="Black"
            HorizontalTextAlignment="Center"

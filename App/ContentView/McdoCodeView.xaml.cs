@@ -5,16 +5,21 @@ namespace App.Controls;
 
 public partial class McdoCodeView : ContentView
 {
-    static Brush unCheckedBrush;
-    static Brush checkedBrush;
+    static Color unCheckedColor = new Color(255, 199, 44);
+    static Color checkedColor = new Color(211, 155, 0);
     bool _firstTime = true;
+
+    public static readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(McdoCodeView), unCheckedColor);
+
+    public Color BackgroundColor
+    {
+        get => GetValue(BackgroundColorProperty) as Color;
+        set => SetValue(BackgroundColorProperty, value);
+    }
 
     public McdoCodeView()
     {
         InitializeComponent();
-
-        unCheckedBrush = new SolidColorBrush(new Color(255, 199, 44));
-        checkedBrush = new SolidColorBrush(new Color(211, 155, 0));
 
         this.Loaded += (s, e) => { _firstTime = false; };
 
@@ -25,7 +30,7 @@ public partial class McdoCodeView : ContentView
     private async void CheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
     {
         var c = BindingContext as McdoCode;
-        ((Grid)((CheckBox)sender).Parent).Background = e.Value ? checkedBrush : unCheckedBrush;
+        BackgroundColor = e.Value ? checkedColor : unCheckedColor;
 
         if (_firstTime)
         {
