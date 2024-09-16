@@ -1,25 +1,26 @@
 using App.ViewModel;
+using ShareableTypes;
+using System.Collections.ObjectModel;
+using System.Text.Json;
 
 namespace App;
 
 public partial class McdoPage : ContentPage
 {
-	public McdoPage(McdoViewModel vm)
-	{
-		InitializeComponent();
-		BindingContext = vm;
+    public McdoPage(McdoViewModel vm)
+    {
+        InitializeComponent();
+        BindingContext = vm;
 
         NewMcdoCodeControl.NewMcdoCodeAdded += (mcdoCode) =>
         {
             vm.Codes.Add(mcdoCode);
-            OpenAddNewPopup(null, null);
+            vm.OpenAddNewCodePopup();
         };
-	}
 
-
-    private void ItemCheckboxChecked(object sender, CheckedChangedEventArgs e)
-    {
-
+        Task.Run(async () => {
+            await vm.LoadCodes();
+        });
     }
 
     private void OpenAddNewPopup(object sender, EventArgs e)
@@ -30,12 +31,4 @@ public partial class McdoPage : ContentPage
         if (ListOfCodes.IsVisible) ExpandButton.Text = "+";
         else ExpandButton.Text = "-";
     }
-
-
-
-    //  protected override void OnAppearing()
-    //  {
-    //      base.OnAppearing();
-    //((McdoViewModel)BindingContext).OnAppearing();
-    //  }
 }

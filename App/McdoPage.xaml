@@ -8,32 +8,47 @@
              xmlns:controls="clr-namespace:App.Controls"
              xmlns:models="clr-namespace:App.Model"
              x:DataType="viewmodel:McdoViewModel">
-    <Grid RowDefinitions="1*, 8*, 1*">
-        <Label 
-            Text="Mcdonal's Discount Codes"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+    <Grid RowDefinitions="1*, 8*, 1*"
+          HorizontalOptions="CenterAndExpand"
+          Margin="5, 10">
+        <Grid>
+            <RoundRectangle BackgroundColor="White"
+                            CornerRadius="20"/>
 
-            <CollectionView x:Name="ListOfCodes"
-                Grid.Row="1"
-                Margin="10, 0"
-                ItemsSource="{Binding Codes}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:McdoCodeModel">
-                        <controls:McdoCodeView/>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+            <Label 
+                Text="Mcdonald's Discount Codes"
+                TextColor="Black"
+                FontSize="Body"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" />
+        </Grid>
+
+        <CollectionView x:Name="ListOfCodes"
+                        Grid.Row="1"
+                        ItemsSource="{Binding Codes}"
+                        IsVisible="{Binding IsDisplayingAllCodes}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:McdoCodeModel">
+                    <controls:McdoCodeView/>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
         <controls:NewMcdoCodeControl x:Name="NewMcdoCodeControl"
             Grid.Row="1"
-            IsVisible="False"/>
+            IsVisible="{Binding IsAddingNewCode}"/>
+
+        <ActivityIndicator x:Name="LoadingIndicator"
+                           Grid.Row="1"
+                           IsRunning="{Binding IsBusy}"/>
 
         <Grid Grid.Row="2" 
               ColumnDefinitions="3*, 1*">
             <Button x:Name="ExpandButton"
                     Grid.Column="1"
-                    Clicked="OpenAddNewPopup"
-                    Text="+"/>
+                    WidthRequest="{Binding Source={RelativeSource Self}, Path=HeightRequest}"
+                    Command="{Binding OpenAddNewCodePopupCommand}"
+                    Text="{Binding ExpandButtonText}"
+                    CornerRadius="50"/>
         </Grid>
     </Grid>
 

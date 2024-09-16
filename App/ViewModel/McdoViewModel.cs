@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using ShareableTypes;
 using System;
 using System.Collections.Generic;
@@ -16,21 +17,41 @@ namespace App.ViewModel
         [ObservableProperty]
         ObservableCollection<McdoCode> codes;
 
+        [ObservableProperty]
+        bool isBusy = true;
+
+        [ObservableProperty]
+        bool isDisplayingAllCodes = false;
+
+        [ObservableProperty]
+        bool isAddingNewCode = false;
+
+        [ObservableProperty]
+        string expandButtonText = "+";
+
         public McdoViewModel()
         {
-            LoadCodes();
 
         }
-         
-        public async void LoadCodes()
+
+
+        public async Task LoadCodes()
         {
+            IsDisplayingAllCodes = false;
+            IsAddingNewCode = false;
+            IsBusy = true;
+
+            await Task.Delay(2000);
+
             if (!await RequestCodesAsync())
             {
-                
+                throw new Exception("Failed to retrieve codes!");
             }
 
+            IsBusy = false;
+            IsDisplayingAllCodes = true;
         }
-        public async Task<bool> RequestCodesAsync()
+        private async Task<bool> RequestCodesAsync()
         {
             try
             {
@@ -45,9 +66,14 @@ namespace App.ViewModel
             }
         }
 
-        public async Task ItemCheckboxChecked(object sender, EventArgs e)
+        [RelayCommand]
+        public void OpenAddNewCodePopup()
         {
+            IsDisplayingAllCodes = !IsDisplayingAllCodes;
+            IsAddingNewCode = !IsAddingNewCode;
 
+            if (IsDisplayingAllCodes) ExpandButtonText = "+";
+            else ExpandButtonText = "-";
         }
     }
 }
