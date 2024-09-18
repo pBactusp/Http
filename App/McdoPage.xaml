@@ -6,14 +6,25 @@
              xmlns:viewmodel="clr-namespace:App.ViewModel"
              xmlns:shareabletypes="clr-namespace:ShareableTypes;assembly=ShareableTypes"
              xmlns:controls="clr-namespace:App.Controls"
-             x:DataType="viewmodel:McdoViewModel">
+             xmlns:mycolors="clr-namespace:App.Colors"
+             x:DataType="viewmodel:McdoViewModel"
+             BackgroundColor="WhiteSmoke">
 
     <Grid RowDefinitions="1*, 8*, 1*"
-          HorizontalOptions="CenterAndExpand"
-          Margin="5, 10">
+          HorizontalOptions="Fill"
+          Margin="5, 10"
+          MinimumWidthRequest="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=WidthRequest}"
+          >
         <Grid>
-            <RoundRectangle BackgroundColor="White"
-                            CornerRadius="20"/>
+            <Border
+                Margin="0, 0, 0, 4"
+                StrokeThickness="5"
+                Stroke="{Binding Source={x:Static mycolors:MyColors.McdoRedDim}}"
+                BackgroundColor="{Binding Source={x:Static mycolors:MyColors.McdoYellow}}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="20"/>
+                </Border.StrokeShape>
+            </Border>
 
             <Label 
                 Text="Mcdonald's Discount Codes"
@@ -45,10 +56,20 @@
               ColumnDefinitions="3*, 1*">
             <Button x:Name="ExpandButton"
                     Grid.Column="1"
-                    WidthRequest="{Binding Source={RelativeSource Self}, Path=HeightRequest}"
+                    BackgroundColor="{Binding Source={x:Static mycolors:MyColors.McdoRedDim}}"
+                    TextColor="{Binding Source={x:Static mycolors:MyColors.McdoYellow}}"
+                    FontSize="Large"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    HeightRequest="70"
+                    WidthRequest="70"
                     Command="{Binding OpenAddNewCodePopupCommand}"
                     Text="{Binding ExpandButtonText}"
-                    CornerRadius="50"/>
+                    CornerRadius="50">
+                <!--WidthRequest="{Binding Source={RelativeSource Self}, Path=HeightRequest}"-->
+
+            </Button>
+
         </Grid>
     </Grid>
 

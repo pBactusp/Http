@@ -7,6 +7,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CommunityToolkit.Maui.Extensions;
+using App.Colors;
 
 
 namespace App.ViewModel
@@ -45,7 +47,7 @@ namespace App.ViewModel
         {
             BackgroundColor = IsUsed ? MyColors.McdoYellowDim : MyColors.McdoYellow;
             CheckboxColor = IsUsed ? MyColors.McdoRedDim : MyColors.McdoRed;
-
+            
             if (_firstTime)
             {
                 return;
@@ -63,6 +65,5 @@ namespace App.ViewModel
             }
             );
         }
-        
     }
 }
