@@ -41,7 +41,7 @@ namespace App.ViewModel
             IsAddingNewCode = false;
             IsBusy = true;
 
-            await Task.Delay(2000);
+            await Task.Delay(1000);
 
             if (!await RequestCodesAsync())
             {

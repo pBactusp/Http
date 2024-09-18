@@ -6,8 +6,8 @@
              xmlns:viewmodel="clr-namespace:App.ViewModel"
              xmlns:shareabletypes="clr-namespace:ShareableTypes;assembly=ShareableTypes"
              xmlns:controls="clr-namespace:App.Controls"
-             xmlns:models="clr-namespace:App.Model"
              x:DataType="viewmodel:McdoViewModel">
+
     <Grid RowDefinitions="1*, 8*, 1*"
           HorizontalOptions="CenterAndExpand"
           Margin="5, 10">
@@ -28,8 +28,8 @@
                         ItemsSource="{Binding Codes}"
                         IsVisible="{Binding IsDisplayingAllCodes}">
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:McdoCodeModel">
-                    <controls:McdoCodeView/>
+                <DataTemplate x:DataType="shareabletypes:McdoCode">
+                    <controls:McdoCodeView />
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

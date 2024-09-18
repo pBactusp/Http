@@ -1,4 +1,6 @@
-﻿using App.ViewModel;
+﻿using App.Controls;
+using App.ViewModel;
+using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 
 namespace App
@@ -10,6 +12,7 @@ namespace App
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -21,6 +24,9 @@ namespace App
 
             builder.Services.AddTransient<McdoPage>();
             builder.Services.AddTransient<McdoViewModel>();
+
+            builder.Services.AddTransient<McdoCodeView>();
+            builder.Services.AddTransient<McdoCodeViewModel>();
 
 #if DEBUG
             builder.Logging.AddDebug();

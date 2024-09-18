@@ -2,12 +2,23 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="App.Controls.McdoCodeView"
-             xmlns:model="clr-namespace:App.Model"
-             x:DataType="model:McdoCodeModel"
+             xmlns:viewmodel="clr-namespace:App.ViewModel"
+             x:DataType="viewmodel:McdoCodeViewModel"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Name="self">
+    
+    
 
     <Grid ColumnDefinitions="1*, 2*, 1*" Margin="2"
-          BackgroundColor="{Binding Source={x:Reference self}, Path=BackgroundColor}">
+          >
+
+        <Border Grid.ColumnSpan="3"
+                BackgroundColor="{Binding BackgroundColor}"
+                StrokeThickness="0">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="10"/>
+            </Border.StrokeShape>
+        </Border>
 
         <Label Text="{Binding CreationDate}"
            TextColor="Black"
@@ -20,11 +31,15 @@
            HorizontalTextAlignment="Center"
            VerticalTextAlignment="Center"/>
 
-        <CheckBox Grid.Column="2"
-              Color="#DA291C"
-              IsChecked="{Binding IsUsed}"
-              CheckedChanged="CheckBox_CheckedChanged"
-              >
+        <CheckBox x:Name="IsUsedCheckBox"
+              Grid.Column="2"
+              Color="{Binding CheckboxColor}"
+              IsChecked="{Binding IsUsed}">
+            <CheckBox.Behaviors>
+                <toolkit:EventToCommandBehavior
+                    EventName="CheckedChanged"
+                    Command="{Binding CheckboxCheckedCommand}"/>
+            </CheckBox.Behaviors>
         </CheckBox>
 
     </Grid>
